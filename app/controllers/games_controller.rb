@@ -7,28 +7,28 @@ class GamesController < ApplicationController
   def score
     @word = params[:word]
     @letters = params[:letters].split(' ')
+    @alert = ''
 
-    found = false
+    outside = false
     @word.split('').each do |letter|
-      found = @letters.none? letter
+      outside = @letters.none? letter
     end
-    @found = found
+    @outside = outside
+    @found = false
 
-    if found
-      @answer = "Sorry, but #{@word} can't be built out of #{@letters.join(', ')}"
-    else
+    if outside == false
       url = "https://wagon-dictionary.herokuapp.com/#{@word}"
 
       response = RestClient.get(url)
       json = JSON.parse(response)
 
       if json['found']
-        @answer = "Congratulations! #{@word} is a valid English word!"
+        @found = true
       else
-        @answer = "Sorry but #{@word} does not seem to be a valid English word..."
+        @found = false
       end
-
     end
+    
   end
 
 end

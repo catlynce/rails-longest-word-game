@@ -1,3 +1,17 @@
-<h1>Result</h1>
-<%= @answer %>
-<p><%= link_to 'Play again', new_path %></p>
+<h1 class="mt-5">Result</h1>
+
+<% if @outside %>
+    <div class="alert alert-danger">
+        <p class="m-0">Sorry, but <strong><%=@word%></strong> can't be built out of <%=@letters.join(', ')%></p>
+    </div>
+<% elsif @found == false %>
+    <div class="alert alert-warning">
+        <p class="m-0">Sorry but <strong><%=@word%></strong> does not seem to be a valid English word...</p>
+    </div>
+<% else %>
+    <div class="alert alert-success">
+        <p class="m-0">Congratulations! <strong><%=@word%></strong> is a valid English word!</p>
+    </div>
+<% end %>
+
+<p><%= link_to 'Play again', new_path, class: 'btn btn-outline-secondary' %></p>

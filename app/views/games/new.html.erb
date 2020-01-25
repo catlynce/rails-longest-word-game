@@ -1,5 +1,6 @@
-<h1>New Game</h1>
-<ul>
+<h1 class="mt-5">New Game</h1>
+
+<ul class="mt-4">
     <% @letters.each do |item| %>
         <li><%= item %></li>
     <% end %>
@@ -10,6 +11,10 @@
 <form action="/score" method="POST">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag :letters, @letters %>
-    <input type="text" name="word">
-    <button>Play</button>
+    <div class="input-group">
+        <input type="text" name="word" class="form-control" placeholder="Good luck..." autofocus>
+        <div class="input-group-append">
+            <button class="btn btn-primary">Play</button>
+        </div>
+    </div>
 </form>
